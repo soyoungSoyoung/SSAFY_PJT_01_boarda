@@ -1,0 +1,43 @@
+spring:
+  profiles:
+    include: secret
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${database.prod.url}
+    username: ${database.prod.username}
+    password: ${database.prod.password}
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    servlet:
+      multipart:
+        max-file-size: 50MB
+        max-request-size: 50MB
+        enabled: true
+cloud:
+  aws:
+    s3:
+      bucket: gongtong-bucket
+      folder:
+        memberFolder: member/
+        reviewFolder: review/
+        articleFolder: article/
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: ${aws.credentials.accessKey}
+      secret-key: ${aws.credentials.secretKey}
+
+server:
+  servlet:
+    context-path: /api
+  #port: 8081
